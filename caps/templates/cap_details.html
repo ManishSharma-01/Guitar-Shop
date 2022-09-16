@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body%}
+<div id="popupmessage" style="background:green; max-width:450; margin:auto; text-align:center; color:white">
+{{message}}
+<input type="button" onclick="myFunction()", value="X" style="background:green; border:none;">
+</div>
+<div class="container">
+    <section class="tab_content tab1">
+        <div class="most-viewed-section col-lg-12">
+            <h2>Update Product</h2>
+            <form action="update_cap/{{cap.id}}" method="post" enctype="multipart/form-data" action="post">
+                {% csrf_token %}
+                <div class="image form-group">
+                    <img src="/{{cap.image}}" width="200px" height="200px" id="imagetag">
+                </div>
+                <div class="form form-group">
+                    <label for="formFileLd" class="form-label">Change Photo</label>
+                    <input class="form-control form-control-md" name="file" id="formFileLd" type="file" accept='image/*'  
+                    style="width: 50%;" onchange="update_image_view()"/>
+                </div>
+
+                <div class="form form-group">
+                    <label for="Name">Name</label>
+                    <input type="text" class="form-control" id="Name"  name="name" placeholder="Enter Name of the Product" style="width: 50%;" value={{cap.name}}>
+                </div>
+
+                <div class="form form-group">
+                    <label for="desc">Description</label>
+                    <input type="text" class="form-control" id="desc"  name="desc" placeholder="Enter Description of the Product" style="width:50%; height:150px;" value={{cap.desc}}>
+                </div>
+
+                <div class="form form-group">
+                    <label for="Price">Price</label>
+                    <input type="text" class="form-control" id="Price"  name="price" placeholder="Enter Price of the Product" style="width:50%;" value={{cap.price}}>
+                </div>
+                <button class="btn btn-primary" type="submit">Update Details</button>
+        
+            </form>
+        </div>
+        
+    </section>
+</div>
+
+<script>
+    // When the user clicks on <div>, open the popup
+    function myFunction() {
+      var popup = document.getElementById("popupmessage");
+      popup.style.display="none"
+    }
+
+    function update_image_view() {
+        var image=document.getElementById('imagetag');
+        var image_input = document.getElementById('formFileLd')
+        
+
+    }
+    </script>
+{%endblock%}

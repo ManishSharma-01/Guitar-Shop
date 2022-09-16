@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+{% block body%}
+<h1>This is most viewed</h1>
+<div class-"content col-lg-12 col-md-6 col-sm-6" id="divmax">
+    {% for i in data %}
+    <div class="card col-lg-3 col-md-3 p-5 m-5">
+        <img src={{i.image}} alt="Not Found" width="250vw" height="200px"/>
+        <div class="actual-info-descriptioncol-12" >
+            <div class="actual-info-desc-head-para col-7">
+                    <h4>{{i.name}}</h4>
+                    <p>
+                        {{i.desc}}
+                    </p>
+                    <h5>Price : {{i.price}}</h5>
+
+            </div>
+            {% if user.is_superuser%}
+            <div class="actual-info-desc-btn col-5" style="display:flex;">
+                    <button class="btn btn-info"><a href="cap_details/{{i.id}}" style="color:white;">Update</a></button>
+                    <button class="btn btn-danger" style="margin-left:50px;"><a href="delete_cap/{{i.id}}" style="color:white;">Delete</a></button>
+            </div>
+
+            {% elif user.is_authenticated%}
+            <form action="create_order/{{i.id}}" method="post" enctype="multipart/form-data" >
+                {% csrf_token %}
+                
+            
+            <div class="actual-info-desc-btn col-5" style="display:flex;">
+                <button class="btn btn-info" type="submit">Buy</button>
+                <input id="form1" min="1" name="quantity" value="1" type="number"class="form-control form-control-sm" style="margin-left:10px;" />                
+            </div>
+            </form>
+            {%endif%}
+
+
+
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+{%endblock%}
